@@ -126,9 +126,14 @@ class Package
         if (modulePath in self._modules)
             return self._modules[modulePath].instanceModule.exports;
 
-        modulePath += '/index';
-        if (modulePath in self._modules)
-            return self._modules[modulePath].instanceModule.exports;
+        if ((modulePath + '.js') in self._modules)
+            return self._modules[modulePath + '.js'].instanceModule.exports;
+
+        if ((modulePath + '/index') in self._modules)
+            return self._modules[modulePath + '/index'].instanceModule.exports;
+
+        if ((modulePath + '/index.js') in self._modules)
+            return self._modules[modulePath + '/index.js'].instanceModule.exports;
 
         return Module.DoesNotExist;
     }
